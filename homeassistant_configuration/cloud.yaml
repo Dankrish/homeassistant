@@ -1,0 +1,7 @@
+google_actions:
+    include_domains:
+        - switch                                                                                                  
+        - light
+    exclude_domains:
+        - script
+        - automation

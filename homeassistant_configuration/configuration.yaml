@@ -1,0 +1,54 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 45.5979
+  longitude: 8.9151
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 0
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Rome
+  # Customization file
+  customize: !include customize.yaml
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Show the introduction message on startup.
+introduction:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+# Discover some devices automatically
+discovery:
+
+# Sensors
+sensor:
+  # Weather prediction
+  - platform: yr
+
+# Text to speech
+tts:
+  - platform: google
+
+#WOL Switch    
+switch:
+  - platform: wake_on_lan
+    mac_address: "70:8B:CD:4D:03:78"
+    name: Wake on lan
+    host: "192.168.1.16"
+    turn_off:
+        service: shell_command.turn_off_pc
+
+
+shell_command:
+        turn_off_pc: "ssh pi@192.168.100.16 'cd Desktop & mkdir pippo'"    
+
+group: !include groups.yaml
+cloud: !include cloud.yaml 
+automation: !include automations.yaml
+script: !include scripts.yaml
